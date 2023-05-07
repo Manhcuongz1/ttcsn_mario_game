@@ -1,6 +1,6 @@
 import pygame
 from . import setup, tools
-
+from . import player
 
 def main():
     pygame.init()
@@ -8,7 +8,7 @@ def main():
     # setup screen
     setup_background()
     setup_text_background()
-
+    player.player()
     # vòng lặp xử lý game
     pygame.display.update()
     #  event = pygame.event
@@ -27,13 +27,13 @@ def main():
                         setup_background()
                         setup_text_background()
 
-
         if setup.START:
             screen_delay_start_game()
             setup.START = False  # thiết lập lại màn khởi động bằng False nghĩa là tắt màn khởi động
             setup.PLAY_GAME = True  # thiết lập màn chơi game bằng True nghĩa là bắt đầu màn game
         # di chuyển màn hình
         if setup.PLAY_GAME:
+            player.player()
             screen_update()
         # # mở setting
         # if setup.START == False and setup.PLAY_GAME == False:
@@ -101,15 +101,25 @@ def screen_update():
     # nhấn giữ nút RIGHT
     keys = pygame.key.get_pressed()
     if keys[pygame.K_RIGHT]:
-        setup.LOCATION_MAP_X -= 5 # cập nhật toạ độ của ảnh
-        screen_play_game()
+        if setup.LOCATION_MAP_X >=-8320:
+            setup.LOCATION_MAP_X -= 5 # cập nhật toạ độ của ảnh
+        screen_play_game()          # sau khi update toạ độ xong thì update lại màn hình game vớ toạ độ mới
+        if setup.LOCATION_PLAYER_X <= 350:
+            setup.LOCATION_PLAYER_X +=3
+        player.player()
         keys = pygame.key.get_pressed()
+
     # nhấn giữ nhất LEFT
     keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT]:
-        setup.LOCATION_MAP_X += 5 # cập nhật toạ độ của ảnh
-        screen_play_game()
+        if setup.LOCATION_MAP_X <=0:
+            setup.LOCATION_MAP_X += 5 # cập nhật toạ độ của ảnh
+        screen_play_game()     # sau khi update toạ độ xong thì update lại màn hình game vớ toạ độ mới
+        if setup.LOCATION_PLAYER_X >=100:
+            setup.LOCATION_PLAYER_X -=3
+        player.player()
         keys = pygame.key.get_pressed()
+
 def screen_setting() :
     # tải hình ảnh background và thay đổi kích thước
     background_image = setup.GFX['backgrmario']

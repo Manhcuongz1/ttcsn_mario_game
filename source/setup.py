@@ -13,6 +13,9 @@ START = False
 PLAY_GAME = False
 LOCATION_MAP_X = 0 # vị trí ban đầu ảnh tại x = 0
 
+#PLAYER
+LOCATION_PLAYER_X = 100
+
 # SETUP TEXT - DETAIL
 GFX = tools.load_all_gfx('assets')
 font = pg.font.Font("C:\\Users\\cuong\\AppData\\Local\\Microsoft\\Windows\\Fonts\\joystixmonospace.ttf", 30)
